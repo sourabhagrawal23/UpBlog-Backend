@@ -157,6 +157,11 @@ exports.updatePost = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
+            if(!post.creator.toString() === req.userId) {
+                const error = new Error('Not authorized!');
+                error.statusCode = 403;
+                throw error;
+            }
             if (imageUrl !== post.imageUrl) {
                 clearImage(post.imageUrl);
             }
@@ -177,13 +182,17 @@ exports.updatePost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-    console.log('inside delete')
     const postId = req.params.postId;
     Post.findById(postId)
         .then(post => {
             if (!post) {
                 const error = new Error('Could not find post.');
                 error.statusCode = 404;
+                throw error;
+            }
+            if(!post.creator.toString() === req.userId) {
+                const error = new Error('Not authorized!');
+                error.statusCode = 403;
                 throw error;
             }
             //Check if creator is currently loggedIn user
