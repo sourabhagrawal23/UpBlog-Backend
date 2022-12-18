@@ -8,7 +8,7 @@
 3. PATCH http://localhost:8080/auth/status
 4. GET http://localhost:8080/auth/status
 
-###Feed
+### Feed
 1. GET: http://localhost:8080/feed/posts
 2. GET http://localhost:8080/feed/post/{postId}
 3. POST http://localhost:8080/feed/post
