@@ -7,6 +7,8 @@
 3. GET: http://localhost:8080/feed/posts
 4. GET http://localhost:8080/feed/post/{postId}
 5. POST http://localhost:8080/feed/post
+6. PATCH http://localhost:8080/auth/status
+7. GET http://localhost:8080/auth/status
 
 ## Authentication
 ![image](https://user-images.githubusercontent.com/44314046/208300883-26749c7c-b8db-4c45-8eca-49ae77435243.png)
