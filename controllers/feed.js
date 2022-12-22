@@ -6,6 +6,8 @@ const { validationResult } = require('express-validator/check');
 const Post = require('../models/post');
 const User = require('../models/user');
 
+//Using call backs here would lead to unreadable code, hence using promises
+
 exports.getPosts = (req, res, next) => {
     const currentPage = req.query.page || 1;
     const perPage = 2;
