@@ -60,11 +60,6 @@ exports.createPost = (req, res, next) => {
         const error = new Error('Validation failed, entered data in incorrect.');
         error.statusCode = 422;
         throw error;
-
-        // return res.status(422).json({
-        //     message: 'Validation failed, entered data is incorrect.',
-        //     errors: errors.array()
-        // })
     }
     if (!req.file) {
         const error = new Error('No image provided.');
