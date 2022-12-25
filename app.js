@@ -49,6 +49,7 @@ app.use((req, res, next) => {
     next();
 });
 
+//Web socket requests will not interfere with this HTTP request
 app.use('/feed', feedRoutes);
 app.use('/auth', authRoutes);
 
@@ -65,6 +66,11 @@ mongoose.connect('mongodb+srv://ShoppingApplication:Password@cluster0.3hs8ppr.mo
         dbName: 'UpBlog'
     })
     .then(result => {
-        app.listen(8080);
+        const server = app.listen(8080);
+        //Web sockets are built up on HTTP
+        const io = require('socket.io')(server);
+        io.on('connection', socket => {
+            console.log('Client connected!');
+        })
     })
     .catch(err => console.log(err));
