@@ -68,9 +68,14 @@ mongoose.connect('mongodb+srv://ShoppingApplication:Password@cluster0.3hs8ppr.mo
     .then(result => {
         const server = app.listen(8080);
         //Web sockets are built up on HTTP
-        const io = require('socket.io')(server);
+        const io = require('socket.io')(server, {
+            cors: {
+                origin: "*",
+                methods: ["GET", "POST", "PUT", "DELETE", "PUT"]
+            }
+        });
         io.on('connection', socket => {
             console.log('Client connected!');
-        })
+        });
     })
     .catch(err => console.log(err));
