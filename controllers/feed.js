@@ -82,13 +82,15 @@ exports.createPost = async (req, res, next) => {
         const user = await User.findById(req.userId)
         user.posts.push(post);
         await user.save();
+        //'posts' is the event name here
+        //Key names i.e. action and post, and also their values are not forced by socket.io
         io.getIO().emit('posts', {
             action: 'create', post: post
         });
         res.status(201).json({
             message: 'Post created successfully!',
             post: post,
-            user: { _id: user._id, name: creator.name }
+            user: { _id: user._id, name: user.name }
         });
     } catch (err) {
         if (!err.statusCode) {
