@@ -15,6 +15,7 @@ exports.getPosts = async (req, res, next) => {
     try {
         const totalItems = await Post.find().countDocuments();
         const posts = await Post.find()
+        .populate('creator')
             .skip((currentPage - 1) * perPage)
             .limit(perPage);
 
@@ -85,7 +86,7 @@ exports.createPost = async (req, res, next) => {
         //'posts' is the event name here
         //Key names i.e. action and post, and also their values are not forced by socket.io
         io.getIO().emit('posts', {
-            action: 'create', post: post
+            action: 'create', post: {...post._doc, creator: {_id: req.userId, name: user.name}}
         });
         res.status(201).json({
             message: 'Post created successfully!',
